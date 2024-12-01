@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import './colors';
+
+
+* {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    background-color: $black-900-default-theme;
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    vertical-align: baseline;
+    list-style-type: none;
+}
