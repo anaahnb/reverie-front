@@ -2,15 +2,27 @@
 @import './colors';
 
 
-* {
+html {
     font-family: "Inter", sans-serif;
     font-size: 16px;
     background-color: $black-900-default-theme;
+    color: $neutral-200-default-theme;
 
     margin: 0;
     padding: 0;
+
     box-sizing: border-box;
     text-decoration: none;
     vertical-align: baseline;
     list-style-type: none;
+
+    a,
+    h1,
+    h3, h2 {
+        color: $neutral-100-default-theme;
+    }
+
+    b {
+        color: $highlight-color
+    }
 }
