@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   plugins: [
     { src: '~/plugins/axios.js', ssr: false },
   ],
+  build: {
+    transpile: ["oh-vue-icons"]
+  },
   vite: {
     css: {
       preprocessorOptions: {
