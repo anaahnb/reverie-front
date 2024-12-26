@@ -18,6 +18,9 @@
             :label="input.label"
           />
         </div>
+        <div>
+          <Calendar />
+        </div>
       </div>
     </div>
   </div>
@@ -25,10 +28,12 @@
 
 <script lang="ts">
 import Input from "~/components/Input.vue";
+import Calendar from "~/components/Calendar.vue";
 
 export default {
   components: {
     Input,
+    Calendar,
   },
   data() {
     return {
@@ -70,7 +75,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" setup>
 .container {
   display: flex;
   justify-content: center;

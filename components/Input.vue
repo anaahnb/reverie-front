@@ -98,6 +98,7 @@
 
     input {
       width: 100%;
+      max-height: 2.625rem;
       background-color: $black-600-default-theme;
       border: none;
       border-radius: 0.5rem;
