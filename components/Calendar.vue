@@ -12,12 +12,13 @@
       </div>
     </div>
     <div class="days-container">
-      <div
+      <button
         v-for="day in calendarDays"
         :key="day.date"
-        :class="[ 'day', { 'current-month': day.currentMonth }, { 'today': day.isToday } ]">
+        :class="[ 'day', { 'current-month': day.currentMonth }, { 'today': day.isToday } ]"
+        @click="selectDate(day.date)">
         {{ day.dayOfMonth }}
-      </div>
+      </button>
     </div>
   </div>
 </template>
@@ -43,60 +44,60 @@ export default {
       });
     },
     calendarDays() {
+      const today = new Date();
+
+      const createDaysArray = (year: number, month: number, startDay: number, endDay: number, isCurrentMonth: boolean) => {
+        return Array.from({ length: endDay - startDay + 1 }, (_, i) => {
+          const dayOfMonth = startDay + i;
+          const date = new Date(year, month, dayOfMonth);
+          return {
+            date,
+            dayOfMonth,
+            currentMonth: isCurrentMonth,
+            isToday: date.toDateString() === today.toDateString(),
+          };
+        });
+      };
+
       const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
       const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
       const daysInMonth = lastDayOfMonth.getDate();
       const firstDayWeekday = firstDayOfMonth.getDay();
 
-      const previousMonth = new Date(this.currentYear, this.currentMonth - 1);
-      const daysInPreviousMonth = new Date(
+      const previousMonthDays = createDaysArray(
+        this.currentYear,
+        this.currentMonth - 1,
+        new Date(this.currentYear, this.currentMonth, 0).getDate() - firstDayWeekday + 1,
+        new Date(this.currentYear, this.currentMonth, 0).getDate(),
+        false
+      );
+
+      const currentMonthDays = createDaysArray(
         this.currentYear,
         this.currentMonth,
-        0
-      ).getDate();
-      const previousMonthDays = [];
+        1,
+        daysInMonth,
+        true
+      );
 
-      for (let i = firstDayWeekday - 1; i >= 0; i--) {
-        previousMonthDays.push({
-          date: new Date(
-            previousMonth.getFullYear(),
-            previousMonth.getMonth(),
-            daysInPreviousMonth - i
-          ),
-          dayOfMonth: daysInPreviousMonth - i,
-          currentMonth: false,
-          isToday: false,
-        });
-      }
-
-      const currentMonthDays = [];
-      const today = new Date();
-
-      for (let i = 1; i <= daysInMonth; i++) {
-        const date = new Date(this.currentYear, this.currentMonth, i);
-        currentMonthDays.push({
-          date,
-          dayOfMonth: i,
-          currentMonth: true,
-          isToday: date.toDateString() === today.toDateString(),
-        });
-      }
-
-      const remainingDays = 35 - (previousMonthDays.length + currentMonthDays.length);
-      const nextMonthDays = [];
-
-      for (let i = 1; i <= remainingDays; i++) {
-        nextMonthDays.push({
-          date: new Date(this.currentYear, this.currentMonth + 1, i),
-          dayOfMonth: i,
-          currentMonth: false,
-          isToday: false,
-        });
-      }
+      const totalDisplayedDays = 35;
+      const remainingDays = totalDisplayedDays - (previousMonthDays.length + currentMonthDays.length);
+      const nextMonthDays = createDaysArray(
+        this.currentYear,
+        this.currentMonth + 1,
+        1,
+        remainingDays,
+        false
+      );
 
       return [...previousMonthDays, ...currentMonthDays, ...nextMonthDays];
     },
   },
+  methods: {
+    selectDate(date: Date) {
+      this.$emit('date-selected', date);
+    },
+  }
 };
 </script>
 
@@ -134,11 +135,19 @@ export default {
     .day {
       padding: 1rem;
       text-align: center;
+      border: none;
+      background: $black-700-default-theme;
+      color: $neutral-100-default-theme;
+      font-size: 1rem;
+      border-radius: 8px;
 
       &:hover {
         cursor: pointer;
         background: $black-600-default-theme;
-        border-radius: 8px;
+      }
+
+      &:focus {
+        background: $black-300-default-theme;
       }
 
       &:not(.current-month) {
@@ -152,6 +161,7 @@ export default {
 
     .today {
       font-weight: bold;
+      color: $highlight-color;
     }
   }
 }

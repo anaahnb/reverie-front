@@ -3,23 +3,29 @@
     <div class="content">
       <div class="header">
         <h1>Reverie</h1>
-        <span>Here, your dreams come to life</span>
+        <span>Here your dreams come to life</span>
       </div>
 
-      <div class="content-cards">
-        <div class="filter-group">
-          <Input
-            v-for="input in filters"
-            :id="input.id"
-            :key="input.id"
-            v-model="input.value"
-            :type="input.type"
-            :placeholder="input.placeholder"
-            :label="input.label"
-          />
+      <div class="cards-group">
+        <div class="content-cards">
+          <div class="filter-group">
+            <Input
+              v-for="input in filters"
+              :id="input.id"
+              :key="input.id"
+              v-model="input.value"
+              :type="input.type"
+              :placeholder="input.placeholder"
+              :label="input.label"
+            />
+          </div>
+          <div>
+            <Calendar @date-selected="updateSelectedDate" />
+          </div>
         </div>
         <div>
-          <Calendar />
+          <Form
+            :selected="data.selected" />
         </div>
       </div>
     </div>
@@ -29,11 +35,13 @@
 <script lang="ts">
 import Input from "~/components/Input.vue";
 import Calendar from "~/components/Calendar.vue";
+import Form from "~/components/Form.vue";
 
 export default {
   components: {
     Input,
     Calendar,
+    Form,
   },
   data() {
     return {
@@ -70,7 +78,15 @@ export default {
           type: "text",
         },
       ],
+      data: {
+        selected: new Date(),
+      }
     };
+  },
+  methods: {
+    updateSelectedDate(date: Date) {
+      this.data.selected = date
+    },
   },
 };
 </script>
@@ -107,33 +123,39 @@ export default {
       }
     }
 
-    .content-cards {
-      max-width: 1280px;
-			margin-top: 2rem;
+    .cards-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
 
-      .filter-group {
-        @include card;
-        max-width: 37rem;
-        font-size: 14px;
+      .content-cards {
+        max-width: 1280px;
 
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 1.5rem;
+        .filter-group {
+          @include card;
+          max-width: 37rem;
+          font-size: 14px;
 
-				#input-title {
-					grid-row: 1;
-  				grid-column: span 2;
-				}
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
 
-        #input-date {
-          grid-column: 1;
-          grid-row: 2;
+          #input-title {
+            grid-row: 1;
+            grid-column: span 2;
+          }
+
+          #input-date {
+            grid-column: 1;
+            grid-row: 2;
+          }
+
+          #input-mood {
+            grid-row: 2;
+            grid-column: 2;
+          }
         }
-
-        #input-mood {
-					grid-row: 2;
-          grid-column: 2;
-				}
       }
     }
   }
