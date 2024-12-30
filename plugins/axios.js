@@ -11,14 +11,14 @@ AxiosHelper.appendHeader('X-Company', '')
 export const headers = AxiosHelper.getHeaders()
 
 export const axios = $axios.create({
-    baseURL: API_BASE_ENDPOINT,
-    headers: AxiosHelper.getHeaders()
+	baseURL: API_BASE_ENDPOINT,
+	headers: AxiosHelper.getHeaders()
 })
 
 export default defineNuxtPlugin(nuxtApp => {
 	return {
-			provide: {
-					axios: $axios
-			}
+		provide: {
+			axios: $axios
+		}
 	}
 });

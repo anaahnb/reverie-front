@@ -8,4 +8,4 @@
 import { axios } from "~/plugins/axios";
 
 
-export const login = (params) => axios.post(`/login/${params}`).then(res => res.data)
+export const login = (params) => axios.post('api/login/', params).then(res => res.data)

@@ -66,7 +66,6 @@ export default {
 				return acc
 			}, {})
 
-      console.log('params', params)
 			login(params).then(res => {
 				localStorage.setItem('token', res.authorisation.token)
 				this.$router.push('/dreams')
