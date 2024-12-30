@@ -6,7 +6,7 @@
         <p>Não possui uma conta? <a href="/register">Registre-se</a></p>
       </div>
       <form @submit.prevent="handleSubmit">
-        <div class="form_content">
+        <div class="form-content">
           <Input
             v-for="input in form.inputs"
             :key="input.id"
@@ -66,6 +66,7 @@ export default {
 				return acc
 			}, {})
 
+      console.log('params', params)
 			login(params).then(res => {
 				localStorage.setItem('token', res.authorisation.token)
 				this.$router.push('/dreams')
@@ -81,7 +82,7 @@ export default {
   background-color: $black-900-default-theme;
   @include flex-column;
   justify-content: center;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 0;
 
   @media (min-width: 640px) {
     padding: 2rem 1, 5rem;
@@ -103,8 +104,11 @@ export default {
       }
     }
 
-    .form_content {
+    .form-content {
       @include card;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
   }
 }

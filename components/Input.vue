@@ -37,9 +37,9 @@
     id: string
     label?: Label | string
     placeholder?: Placeholder | string
-    disabled: boolean
-    type: string
-    required: boolean
+    disabled?: boolean
+    type?: string
+    required?: boolean
     errorMessage?: string
     modelValue: string[] | string,
   }

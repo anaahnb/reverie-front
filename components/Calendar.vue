@@ -105,8 +105,8 @@ export default {
 .calendar {
   @include card;
   padding: 1.5rem;
-  max-width: 37rem;
-  margin-top: 2rem;
+  overflow-x: auto;
+  margin: 2rem 0;
 
   h2 {
     font-size: 24px;
@@ -120,11 +120,11 @@ export default {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
-    padding: 1rem 0;
     margin-top: 1rem;
 
     .weekday {
       color: $neutral-200-default-theme;
+      padding: .6875rem;
     }
   }
 

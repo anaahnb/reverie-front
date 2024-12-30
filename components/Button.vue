@@ -6,9 +6,9 @@
 
 <script setup lang="ts">
 export interface Button {
-  type: "submit" | "button" | "reset";
+  type?: "submit" | "button" | "reset";
   disabled: boolean;
-  loading: boolean;
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<Button>(), {

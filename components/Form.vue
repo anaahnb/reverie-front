@@ -90,7 +90,7 @@ export default {
 					},
 					{
 						id: 'input-mood-scary',
-						label: 'Neutro',
+						label: 'Assustador',
 						icon: {
 							text: 'pi pi-moon',
 							color: '#818CF8'
@@ -131,8 +131,6 @@ export default {
 <style lang="scss">
 	.form-container {
 		@include card;
-		width: 595px;
-
 		.date {
 			font-size: 18px;
 			font-weight: 500;
@@ -148,9 +146,14 @@ export default {
 
 			.input-radio-group {
 				display: grid;
-				grid-template-columns: 1fr 1fr;
+				grid-template-columns: 1fr;
         gap: 1.5rem;
+			}
 
+			@media (min-width: 425px) {
+				.input-radio-group {
+					grid-template-columns: 1fr 1fr;
+				}
 			}
 		}
 	}

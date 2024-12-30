@@ -7,8 +7,8 @@
       </div>
 
       <div class="cards-group">
-        <div class="content-cards">
-          <div class="filter-group">
+        <div>
+          <div class="card-filter-group">
             <Input
               v-for="input in filters"
               :id="input.id"
@@ -19,11 +19,11 @@
               :label="input.label"
             />
           </div>
-          <div>
+          <div class="card-calendar">
             <Calendar @date-selected="updateSelectedDate" />
           </div>
         </div>
-        <div>
+        <div class="card-form">
           <Form
             :selected="data.selected" />
         </div>
@@ -93,14 +93,11 @@ export default {
 
 <style lang="scss" setup>
 .container {
-  display: flex;
-  justify-content: center;
-
   .content {
-    width: 1280px;
+    max-width: 1280px;
+    margin: 0 auto;
 
     .header {
-      max-width: 1280px;
       h1 {
         font-size: 2rem;
         font-weight: 400;
@@ -124,39 +121,41 @@ export default {
     }
 
     .cards-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
       margin-top: 2rem;
 
-      .content-cards {
-        max-width: 1280px;
+      .card-filter-group {
+        @include card;
+        font-size: 14px;
 
-        .filter-group {
-          @include card;
-          max-width: 37rem;
-          font-size: 14px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
 
-          display: grid;
+      @media (min-width: 425px) {
+        .card-filter-group {
           grid-template-columns: 1fr 1fr;
-          gap: 1.5rem;
-
-          #input-title {
-            grid-row: 1;
-            grid-column: span 2;
-          }
-
-          #input-date {
-            grid-column: 1;
-            grid-row: 2;
-          }
-
-          #input-mood {
-            grid-row: 2;
-            grid-column: 2;
-          }
+        }
+      
+        #input-title {
+          grid-column: span 2;
         }
       }
+    }
+
+    @media (min-width: 426px) {
+      .cards-group {
+        display: grid;
+        grid-template-areas:
+          "filters form"
+          "calendar form";
+          grid-template-columns: 1fr minmax(0, 40rem);
+        gap: 2rem;
+      }
+
+      .card-filter-group { grid-area: filters; }
+      .card-calendar { grid-area: calendar; }
+      .form-calendar { grid-area: form; }
     }
   }
 }
