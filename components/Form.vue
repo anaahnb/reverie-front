@@ -13,6 +13,21 @@
 				:type="input.type"
 				:placeholder="input.placeholder"
 				:label="input.label" />
+
+				<div class="input-radio-group">
+					<Radio
+						class="input-radio-form"
+						v-for="radio in form.radio"
+						name="mood"
+						:id="radio.id"
+						:key="radio.id"
+						:model-value="radio.option"
+						:type="radio.type"
+						:label="radio.label"
+						:icon="radio.icon"
+						required />
+				</div>
+
 			<Button :disabled="isButtonDisabled"> Salvar </Button>
 		</div>
 	</div>
@@ -21,6 +36,7 @@
 <script lang="ts">
 
 import Button from './Button.vue';
+import Radio from './Radio.vue';
 
 export default {
 	props: {
@@ -28,6 +44,7 @@ export default {
 	},
 	components: {
 		Button,
+		Radio,
 	},
 	data() {
 		return {
@@ -48,6 +65,48 @@ export default {
 						value: "",
 						error: "",
 						type: "textarea",
+					}
+				],
+				radio: [
+					{
+						id: 'input-mood-happy',
+						label: 'Alegre',
+						icon: {
+							text: 'pi pi-sun',
+							color: '#FACC15'
+						},
+						option: 'alegre',
+						type: "radio",
+					},
+					{
+						id: 'input-mood-neutral',
+						label: 'Neutro',
+						icon: {
+							text: 'pi pi-cloud',
+							color: '#A1A1AA'
+						},
+						option: 'neutral',
+						type: "radio",
+					},
+					{
+						id: 'input-mood-scary',
+						label: 'Neutro',
+						icon: {
+							text: 'pi pi-moon',
+							color: '#818CF8'
+						},
+						option: 'scary',
+						type: "radio",
+					},
+					{
+						id: 'input-mood-mysterious',
+						label: 'Misterioso',
+						icon: {
+							text: 'pi pi-asterisk',
+							color: '#C084FC'
+						},
+						option: 'mysterious',
+						type: "radio",
 					}
 				]
 			}
@@ -85,6 +144,14 @@ export default {
 			flex-direction: column;
 			gap: 1.5rem;
 			margin-top: 1.5rem;
+			box-sizing: border-box;
+
+			.input-radio-group {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+
+			}
 		}
 	}
 </style>
